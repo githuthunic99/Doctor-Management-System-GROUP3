@@ -8,6 +8,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -62,6 +63,9 @@ public class ReceiptionistUIController implements Initializable {
     
     // Observable list to hold the patients in the queue
     private ObservableList<Patient> patientQueue = FXCollections.observableArrayList();
+    
+    // Client socket for server communication
+    private ReceptionistClientSocket clientSocket;
 
     // Define the date format to be used
     private static final DateTimeFormatter DOB_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -75,6 +79,9 @@ public class ReceiptionistUIController implements Initializable {
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Initialize client socket
+        clientSocket = new ReceptionistClientSocket();
+        
         // Set up the table columns to bind to the Patient model's properties
         // We use PropertyValueFactory for simplicity and direct mapping to the model's getters
         patientNameColumn.setCellValueFactory(new PropertyValueFactory<>("fullName"));
@@ -83,17 +90,16 @@ public class ReceiptionistUIController implements Initializable {
         // Set the table's items to the observable list
         queueTable.setItems(patientQueue);
         
-        // Add some dummy data to the queue for demonstration
-        patientQueue.add(new Patient("Jane", "Doe", "21-05-1995", "Waiting"));
-        patientQueue.add(new Patient("John", "Smith", "10-12-1988", "In Progress"));
-
+        // Load queue data from server
+        loadQueueData();
+        
         // You can also set a specific doctor's name here
         queueHeaderLabel.setText("Patient Queue for Dr. Williams");
     }
 
     /**
      * Handles the "Register Patient" button action.
-     * This method would typically save the patient to a database.
+     * This method registers a new patient via the server.
      */
     @FXML
     private void handleRegisterPatient() {
@@ -110,16 +116,19 @@ public class ReceiptionistUIController implements Initializable {
             // Attempt to parse the date with the specified format
             LocalDate dob = LocalDate.parse(dobString, DOB_FORMATTER);
 
-            // Dummy logic: print to console to simulate a successful registration
-            System.out.println("Registering new patient: " + firstName + " " + lastName + ", DOB: " + dob);
-
-            // Here you would add the logic to save the patient to your database.
-            // For example: databaseService.savePatient(newPatient);
-
-            // Clear the fields after "registration"
-            firstNameField.clear();
-            lastNameField.clear();
-            dobField.clear();
+            // Register patient via server
+            boolean success = clientSocket.registerPatient(firstName, lastName, dobString);
+            
+            if (success) {
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Patient registered successfully!");
+                
+                // Clear the fields after successful registration
+                firstNameField.clear();
+                lastNameField.clear();
+                dobField.clear();
+            } else {
+                showErrorAlert("Registration Error", "Failed to register patient. Please try again.");
+            }
         } catch (DateTimeParseException e) {
             // Show an alert if the date format is incorrect
             showErrorAlert("Invalid Date Format", "The date of birth must be in dd-MM-yyyy format. Example: 15-01-1990");
@@ -183,6 +192,12 @@ public class ReceiptionistUIController implements Initializable {
     @FXML
     private void handleLogout() throws Exception {
         System.out.println("User logging out from Receptionist Dashboard...");
+        
+        // Disconnect from server
+        if (clientSocket != null) {
+            clientSocket.exit();
+        }
+        
         Stage stage = (Stage) logOutButton.getScene().getWindow();
         stage.close();
         
@@ -195,15 +210,52 @@ public class ReceiptionistUIController implements Initializable {
     }
 
     /**
+     * Load queue data from server
+     */
+    private void loadQueueData() {
+        // For now, we'll use a default doctor ID of 1
+        // In a real application, this would be the logged-in doctor's ID
+        int doctorId = 1;
+        
+        List<String> queueData = clientSocket.viewQueue(doctorId);
+        if (queueData != null) {
+            patientQueue.clear();
+            for (String queueItem : queueData) {
+                // Parse queue item format: "FirstName LastName - Status"
+                String[] parts = queueItem.split(" - ");
+                if (parts.length == 2) {
+                    String[] nameParts = parts[0].split(" ");
+                    if (nameParts.length >= 2) {
+                        String firstName = nameParts[0];
+                        String lastName = nameParts[1];
+                        String status = parts[1];
+                        patientQueue.add(new Patient(firstName, lastName, "", status));
+                    }
+                }
+            }
+        }
+    }
+    
+    /**
+     * Show an alert to the user.
+     * @param type The type of alert.
+     * @param title The title of the alert.
+     * @param message The message to display.
+     */
+    private void showAlert(Alert.AlertType type, String title, String message) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    
+    /**
      * Utility method to show an error alert to the user.
      * @param title The title of the alert.
      * @param message The message to display.
      */
     private void showErrorAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+        showAlert(Alert.AlertType.ERROR, title, message);
     }
 }

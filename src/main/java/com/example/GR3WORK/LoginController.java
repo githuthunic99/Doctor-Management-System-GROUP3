@@ -6,7 +6,6 @@ package com.example.GR3WORK;
 
 
 import java.io.IOException;
-import static java.lang.System.out;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.Scene;
@@ -21,6 +20,7 @@ public class LoginController {
     @FXML private Hyperlink forgotLink;
     @FXML private Button LoginButton;
     
+    private LoginClientSocket loginClient;
 
     @FXML
     private void handleLogin() throws IOException {
@@ -31,16 +31,31 @@ public class LoginController {
             showAlert(Alert.AlertType.ERROR, "Login Error", "Please enter username and password.");
             return;
         }
-         
         
-            // Send login request
-            out.println("LOGIN " + username + " " + password);
-
+        // Create login client and attempt login
+        loginClient = new LoginClientSocket();
+        String response = loginClient.login(username, password);
+        
+        if (response == null) {
+            showAlert(Alert.AlertType.ERROR, "Connection Error", "Failed to connect to server. Please try again.");
+            return;
+        }
+        
+        if (loginClient.isLoginSuccessful(response)) {
+            String role = loginClient.getUserRole(response);
             
-
-            
-
-        }    
+            // Load appropriate dashboard based on role
+            if ("Doctor".equals(role)) {
+                loadDashboard("/com/example/GR3WORK/DoctorUI.fxml", "Doctor Dashboard");
+            } else if ("Receptionist".equals(role)) {
+                loadDashboard("/com/example/GR3WORK/ReceptionistUI.fxml", "Receptionist Dashboard");
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Login Error", "Invalid user role.");
+            }
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Login Error", "Invalid username or password.");
+        }
+    }    
 
     @FXML
     private void handleForgotLink() {
@@ -58,6 +73,7 @@ public class LoginController {
             stage.show();
             LoginButton.getScene().getWindow().hide();
         } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Failed to load dashboard: " + e.getMessage());
         }
     }
 
