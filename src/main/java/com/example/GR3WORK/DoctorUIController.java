@@ -222,5 +222,15 @@ public class DoctorUIController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    private static class statusColumn {
+
+        private static void setCellValueFactory(PropertyValueFactory<Object, Object> propertyValueFactory) {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
+
+        public statusColumn() {
+        }
+    }
     
 }

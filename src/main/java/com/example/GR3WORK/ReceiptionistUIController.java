@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -62,7 +61,7 @@ public class ReceiptionistUIController implements Initializable {
     private Button markAsSeenButton;
     
     // Observable list to hold the patients in the queue
-    private ObservableList<Patient> patientQueue = FXCollections.observableArrayList();
+    private final ObservableList<Patient> patientQueue = FXCollections.observableArrayList();
     
     // Client socket for server communication
     private ReceptionistClientSocket clientSocket;

@@ -27,9 +27,9 @@
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: #0598ff;" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="175.0" fitWidth="229.0" layoutX="71.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="153.0" fitWidth="185.0" layoutX="96.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="235.25" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="126.0">
                <image>
-                  <Image url="@../../../../../../../../../Downloads/sathish-kumar-in-doctor-plaza-27724.png" />
+                  <Image url="@../../../../../../../../Downloads/sathish-kumar-in-doctor-plaza-27724.png" />
                </image>
             </ImageView>
             <Label layoutX="96.0" layoutY="315.0" text="MATAIBU PLAZA" textAlignment="CENTER">
@@ -66,17 +66,17 @@
             </Label>
             <ImageView fitHeight="92.0" fitWidth="117.0" layoutX="127.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: transparent;">
                <image>
-                  <Image url="@../../../../../../../../../Downloads/Multipleusers.png" />
+                  <Image url="@../../../../../../../../Downloads/Multipleusers.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="33.0" fitWidth="31.0" layoutX="57.0" layoutY="252.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: transparent;">
                <image>
-                  <Image url="@../../../../../../../../../Downloads/keyicon.png" />
+                  <Image url="@../../../../../../../../Downloads/keyicon.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="69.0" fitWidth="54.0" layoutX="45.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: transparent;">
+            <ImageView fitHeight="45.0" fitWidth="54.0" layoutX="45.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: transparent;">
                <image>
-                  <Image url="@../../../../../../../../../Downloads/Singleuser2.png" />
+                  <Image url="@../../../../../../../../Downloads/Singleuser2.png" />
                </image>
             </ImageView>
             <Button fx:id="LoginButton" layoutX="141.0" layoutY="356.0" mnemonicParsing="false" onAction="#LoginButton" prefHeight="31.0" prefWidth="60.0" style="-fx-background-color: #0589ff; -fx-background-radius: 45px;" text="LogIn" textAlignment="CENTER" />
