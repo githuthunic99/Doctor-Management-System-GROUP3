@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 public class DoctorServer {
     private static final int PORT = 5002; // separate port for doctors
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/mataibu_db";
+    private static final String DB_URL = "jdbc:mysql://10.66.42.237:3306/mataibu_db";
     private static final String DB_USER = "root";
     private static final String DB_PASS = "your_password";
 

@@ -6,7 +6,7 @@ import java.sql.*;
 
 public class LoginServer {
     private static final int LOGIN_PORT = 5000;
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/mataibu_db";
+    private static final String DB_URL = "jdbc:mysql://10.66.42.237:3306/mataibu_db";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "your_password";
 

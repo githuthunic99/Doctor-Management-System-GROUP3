@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class ReceptionistClientSocket extends ClientSocket {
     
-    private static final String DEFAULT_HOST = "localhost";
+    private static final String DEFAULT_HOST = "10.66.42.237";
     private static final int RECEPTIONIST_PORT = 5001;
     
     public ReceptionistClientSocket() {

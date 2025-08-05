@@ -5,7 +5,7 @@ package com.example.GR3WORK;
  */
 public class DoctorClientSocket extends ClientSocket {
     
-    private static final String DEFAULT_HOST = "localhost";
+    private static final String DEFAULT_HOST = "10.66.42.237";
     private static final int DOCTOR_PORT = 5002;
     private String doctorUsername;
     

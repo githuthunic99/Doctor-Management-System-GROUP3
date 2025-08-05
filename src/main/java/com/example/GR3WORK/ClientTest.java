@@ -21,7 +21,7 @@ public class ClientTest {
     private static void testLoginClient() {
         System.out.println("--- Testing Login Client ---");
         
-        LoginClientSocket loginClient = new LoginClientSocket();
+        LoginClientSocket loginClient = new LoginClientSocket("10.66.42.237");
         
         // Test valid doctor login
         String response = loginClient.login("#dct001", "password123");
@@ -42,7 +42,7 @@ public class ClientTest {
     private static void testReceptionistClient() {
         System.out.println("--- Testing Receptionist Client ---");
         
-        ReceptionistClientSocket receptionistClient = new ReceptionistClientSocket();
+        ReceptionistClientSocket receptionistClient = new ReceptionistClientSocket("10.66.42.237");
         
         // Test patient registration
         boolean success = receptionistClient.registerPatient("John", "Doe", "15-01-1990");
@@ -70,7 +70,7 @@ public class ClientTest {
     private static void testDoctorClient() {
         System.out.println("--- Testing Doctor Client ---");
         
-        DoctorClientSocket doctorClient = new DoctorClientSocket();
+        DoctorClientSocket doctorClient = new DoctorClientSocket("10.66.42.237");
         
         // Initialize with doctor username
         boolean initialized = doctorClient.initialize("#dct001");

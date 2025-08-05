@@ -7,7 +7,7 @@ import java.util.*;
 
 public class ReceptionistServer {
     private static final int RECEPTIONIST_PORT = 5001; 
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/mataibu_db";
+    private static final String DB_URL = "jdbc:mysql://10.66.42.237:3306/mataibu_db";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "your_password";
 

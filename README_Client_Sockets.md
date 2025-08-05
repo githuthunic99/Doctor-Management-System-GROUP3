@@ -51,7 +51,7 @@ Handles doctor operations:
 
 ### Login Process
 ```java
-LoginClientSocket loginClient = new LoginClientSocket();
+LoginClientSocket loginClient = new LoginClientSocket("10.66.42.237");
 String response = loginClient.login("#dct001", "password123");
 
 if (loginClient.isLoginSuccessful(response)) {
@@ -64,7 +64,7 @@ if (loginClient.isLoginSuccessful(response)) {
 
 ### Receptionist Operations
 ```java
-ReceptionistClientSocket client = new ReceptionistClientSocket();
+ReceptionistClientSocket client = new ReceptionistClientSocket("10.66.42.237");
 
 // Register a new patient
 boolean success = client.registerPatient("John", "Doe", "15-01-1990");
@@ -78,7 +78,7 @@ List<String> queue = client.viewQueue(1);
 
 ### Doctor Operations
 ```java
-DoctorClientSocket client = new DoctorClientSocket();
+DoctorClientSocket client = new DoctorClientSocket("10.66.42.237");
 
 // Initialize with doctor username
 boolean initialized = client.initialize("#dct001");
@@ -135,6 +135,17 @@ Before using the client sockets, ensure the corresponding servers are running:
 1. LoginServer (Port 5000)
 2. ReceptionistServer (Port 5001)
 3. DoctorServer (Port 5002)
+
+## IP Configuration
+
+The client sockets are configured to connect to IP address `10.66.42.237`. If you need to change this:
+1. Update the `DEFAULT_HOST` constant in each client socket class
+2. Update the constructor calls in the test class
+3. Update the examples in this documentation
+
+**Note:** The servers are also configured to connect to the MySQL database at `10.66.42.237:3306`. If you need to change this:
+1. Update the `DB_URL` constant in each server class (LoginServer, ReceptionistServer, DoctorServer)
+2. Ensure the MySQL server is running and accessible on the specified IP and port
 
 ## Database Configuration
 
