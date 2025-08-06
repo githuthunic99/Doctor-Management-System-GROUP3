@@ -31,7 +31,7 @@ public class ReceptionistUIController implements Initializable {
     @FXML private VBox searchResultsVBox;
     @FXML private Button logOutButton;
 
-    @FXML private Label queueHeaderLabel; // ✅ Fixed type
+    @FXML private Label queueHeaderLabel; 
     @FXML private TableView<Patient> queueTable;
     @FXML private TableColumn<Patient, String> patientNameColumn;
     @FXML private TableColumn<Patient, String> statusColumn;

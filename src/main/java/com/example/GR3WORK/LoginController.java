@@ -17,7 +17,7 @@ public class LoginController {
 
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
-    @FXML private Hyperlink forgotLink;
+    @FXML private Hyperlink ForgotLink;
     @FXML private Button LoginButton;
     
     private LoginClientSocket loginClient;
