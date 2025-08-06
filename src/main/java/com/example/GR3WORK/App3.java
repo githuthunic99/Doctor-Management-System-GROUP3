@@ -13,7 +13,7 @@ public class App3 extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         // Load the FXML file for the Doctor's Dashboard.
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("DoctorUI.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/DoctorUI.fxml"));
         Parent root = loader.load();
 
         // Create a new scene with the loaded root node.

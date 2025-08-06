@@ -13,7 +13,7 @@ public class App2 extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         // Load the FXML file. The FXMLLoader reads the file and creates a Parent object.
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ReceiptionistUI.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ReceptionistUI.fxml"));
         Parent root = loader.load();
 
         // The controller is automatically linked by the FXMLLoader based on the fx:controller attribute
